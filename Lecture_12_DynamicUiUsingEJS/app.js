@@ -1,0 +1,30 @@
+//Core module 
+const path = require("path");
+
+//Local Module
+const userRouter = require("./routes/userRouter");
+const {hostRouter} = require("./routes/hostRouter");
+const rootPath = require('./utils/pathutil');
+
+
+//External Module
+const express = require("express");
+
+
+
+const app = express();
+app.set('view engine','ejs');
+app.set('views','views');
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
+app.use(express.urlencoded());
+app.use(userRouter);
+app.use("/host", hostRouter);
+app.use(express.static(path.join(rootPath,'public')));
+
+app.use((req, resp, next) => {
+  resp.render("404",{title:'404-page-not-found',currentPage:'404'})
+});
