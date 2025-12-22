@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../partials/head") %>
+  <body class="min-h-screen flex flex-col bg-gray-100">
+    <!-- Navbar -->
+    <%- include("../partials/nav") %>
+
+    <!-- Main Content -->
+    <main class="p-6">
+      <h1 class="text-green-600 text-3xl font-bold text-center mb-6">
+        Admin Home Lists
+      </h1>
+
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <% if (registeredHomes.length === 0) { %>
+    <p class="text-center col-span-full text-gray-600">
+      No homes registered yet.
+    </p>
+  <% } %>
+
+  <% registeredHomes.forEach(home => { %>
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:bg-gray-200 transition">
+    
+    <img
+      src="<%= home.imageUrl %>"
+      alt="Home Image"
+      class="w-full h-40 object-cover"
+    />
+
+    <div class="p-4">
+      <h3 class="text-lg font-semibold text-gray-800">
+        <%= home.houseName %>
+      </h3>
+
+      <!-- Location + Rating (same line) -->
+      <div class="flex items-center justify-between mt-1 text-sm text-gray-600">
+        <span class="flex items-center gap-1">
+          📍 <%= home.location %>
+        </span>
+
+        <div class="flex items-center gap-1">
+          <% for(let i = 1; i <= 5; i++) { %>
+            <% if(i <= home.rating) { %>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                <path d="M10 15l-5.878 3.09L5.82 11.545.941 7.41l6.09-.885L10 1l2.969 5.525 6.09.885-4.879 4.136 1.699 6.545z"/>
+              </svg>
+            <% } else { %>
+              <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20">
+                <path d="M10 15l-5.878 3.09L5.82 11.545.941 7.41l6.09-.885L10 1l2.969 5.525 6.09.885-4.879 4.136 1.699 6.545z"/>
+              </svg>
+            <% } %>
+          <% } %>
+        </div>
+      </div>
+
+      <p class="text-amber-600 font-bold mt-2">
+        ₹ <%= home.price %> / night
+      </p>
+
+      <!-- Action Button -->
+      <div class="flex items-center justify-around mt-4">
+  <a
+    href="/host/edit-home/<%= home.id %>"
+    class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition"
+  >
+    Edit
+  </a>
+
+  <a
+    href="/host/delete-home/<%= home.id %>"
+    class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition"
+  >
+    Delete
+  </a>
+</div>
+
+    </div>
+  </div>
+<% }) %>
+
+</div>
+
+      </div>
+    </main>
+  </body>
+</html>
