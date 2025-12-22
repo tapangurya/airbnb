@@ -1,90 +1,322 @@
 [
   {
-    "houseName": "VILLA GOLDEN",
-    "imageUrl": "https://wallpapercave.com/wp/wp7113919.jpg",
-    "price": "100",
-    "location": "Bengaluru, Karnataka",
-    "rating": "5",
-    "id": "1"
+    "id": "11",
+    "houseName": "Orchid Retreat",
+    "imageUrl": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+    "price": "1500",
+    "location": "Shimla, Himachal Pradesh",
+    "rating": "4.8"
   },
   {
-    "id": "2",
-    "houseName": "bhikas villa2",
-    "imageUrl": "https://img.onmanorama.com/content/dam/mm/en/lifestyle/decor/images/2017/4/26/traditional-modern-mix-home.jpg.image.784.410.jpg",
-    "price": "1000",
-    "location": "mohali,punjab,india",
-    "rating": "3"
+    "id": "12",
+    "houseName": "Azure Bay Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800",
+    "price": "2500",
+    "location": "Goa, India",
+    "rating": "4.2"
   },
   {
-    "id": "3",
-    "houseName": "bhikas villa2",
-    "imageUrl": "https://stylesatlife.com/wp-content/uploads/2023/08/Simple-and-Best-Village-House-Design-Ideas-2023.jpg",
-    "price": "2000",
-    "location": "Kolkata westbengal",
-    "rating": "4"
-  },
-  {
-    "id": "4",
-    "houseName": "bhikas villa32",
-    "imageUrl": "https://eycrk5cno2n.exactdn.com/wp-content/uploads/2022/02/The-Importance-of-High-Quality-Real-Estate-Photos-v3.jpg",
-    "price": "600",
-    "location": "Durgapur westbengal",
+    "id": "13",
+    "houseName": "Heritage Haveli",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+    "price": "3000",
+    "location": "Jaipur, Rajasthan",
     "rating": "5"
   },
   {
-    "id": "5",
-    "houseName": "Golden Villa7",
-    "imageUrl": "https://stylesatlife.com/wp-content/uploads/2023/08/Simple-and-Best-Village-House-Design-Ideas-2023.jpg",
-    "price": "600",
-    "location": "Kolkata westbengal",
-    "rating": "3"
-  },
-  {
-    "id": "6",
-    "houseName": "Golden Villa9",
-    "imageUrl": "https://stylesatlife.com/wp-content/uploads/2023/08/Simple-and-Best-Village-House-Design-Ideas-2023.jpg",
-    "price": "400",
-    "location": "mohali,punjab,india",
-    "rating": "4"
-  },
-  {
-    "id": "7",
-    "houseName": "Golden Villa9",
-    "imageUrl": "https://stylesatlife.com/wp-content/uploads/2023/08/Simple-and-Best-Village-House-Design-Ideas-2023.jpg",
-    "price": "400",
-    "location": "mohali,punjab,india",
-    "rating": "5"
-  },
-  {
-    "id": "8",
-    "houseName": "Golden Villa 23",
-    "imageUrl": "https://stylesatlife.com/wp-content/uploads/2023/08/Simple-and-Best-Village-House-Design-Ideas-2023.jpg",
-    "price": "699.0",
-    "location": "Bangalore",
-    "rating": "4"
-  },
-  {
-    "id": "9",
-    "houseName": "bhikas villa",
-    "imageUrl": "https://stylesatlife.com/wp-content/uploads/2023/08/Simple-and-Best-Village-House-Design-Ideas-2023.jpg",
-    "price": "799",
-    "location": "Bengaluru, Karnataka",
-    "rating": "3"
-  },
-  {
-    "id": "10",
-    "houseName": "LuxeryVilla",
-    "imageUrl": "https://stylesatlife.com/wp-content/uploads/2023/08/Simple-and-Best-Village-House-Design-Ideas-2023.jpg",
-    "price": "899",
-    "location": "Bengaluru, Karnataka",
+    "id": "14",
+    "houseName": "The Cedar Log",
+    "imageUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800",
+    "price": "1100",
+    "location": "Manali, Himachal Pradesh",
     "rating": "4.5"
   },
   {
-    "houseName": "Winter Home",
-    "imageUrl": "https://i.pinimg.com/originals/8c/c4/9f/8cc49fa075f11e953ffcdcc391445071.jpg",
-    "price": "1299",
-    "location": "Zirakpur,Punjab",
-    "rating": "4",
-    "id": "0.9389537358974633"
+    "id": "15",
+    "houseName": "Modern Matrix",
+    "imageUrl": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
+    "price": "950",
+    "location": "Gurgaon, Haryana",
+    "rating": "3.8"
+  },
+  {
+    "id": "16",
+    "houseName": "Coconut Grove",
+    "imageUrl": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+    "price": "1800",
+    "location": "Kochi, Kerala",
+    "rating": "4.7"
+  },
+  {
+    "id": "17",
+    "houseName": "Royal Residency",
+    "imageUrl": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+    "price": "4500",
+    "location": "Udaipur, Rajasthan",
+    "rating": "4.9"
+  },
+  {
+    "id": "18",
+    "houseName": "The Glass House",
+    "imageUrl": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800",
+    "price": "3200",
+    "location": "Pune, Maharashtra",
+    "rating": "4.6"
+  },
+  {
+    "id": "19",
+    "houseName": "Emerald Estate",
+    "imageUrl": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800",
+    "price": "1400",
+    "location": "Ooty, Tamil Nadu",
+    "rating": "4.4"
+  },
+  {
+    "id": "21",
+    "houseName": "Marble Manor",
+    "imageUrl": "https://images.unsplash.com/photo-1575517111478-7f6afd0973db?w=800",
+    "price": "2100",
+    "location": "Agra, Uttar Pradesh",
+    "rating": "4.3"
+  },
+  {
+    "id": "22",
+    "houseName": "Pine Valley",
+    "imageUrl": "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=800",
+    "price": "1250",
+    "location": "Nainital, Uttarakhand",
+    "rating": "4.5"
+  },
+  {
+    "id": "23",
+    "houseName": "Skyline Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800",
+    "price": "5500",
+    "location": "Mumbai, Maharashtra",
+    "rating": "4.8"
+  },
+  {
+    "id": "24",
+    "houseName": "Coral Cottage",
+    "imageUrl": "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800",
+    "price": "900",
+    "location": "Puducherry, India",
+    "rating": "4.2"
+  },
+  {
+    "id": "27",
+    "houseName": "Ivy Terrace",
+    "imageUrl": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800",
+    "price": "1650",
+    "location": "Chandigarh, India",
+    "rating": "4.5"
+  },
+  {
+    "id": "28",
+    "houseName": "Lakeview Lodge",
+    "imageUrl": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800",
+    "price": "1900",
+    "location": "Srinagar, J&K",
+    "rating": "4.9"
+  },
+  {
+    "id": "29",
+    "houseName": "Desert Rose Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800",
+    "price": "2200",
+    "location": "Jodhpur, Rajasthan",
+    "rating": "4.3"
+  },
+  {
+    "id": "31",
+    "houseName": "Urban Edge",
+    "imageUrl": "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800",
+    "price": "3100",
+    "location": "Bhopal, MP",
+    "rating": "4.1"
+  },
+  {
+    "id": "32",
+    "houseName": "Pearl Palace",
+    "imageUrl": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800",
+    "price": "2400",
+    "location": "Lucknow, UP",
+    "rating": "4.7"
+  },
+  {
+    "id": "33",
+    "houseName": "Riverfront Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800",
+    "price": "1750",
+    "location": "Haridwar, Uttarakhand",
+    "rating": "4.2"
+  },
+  {
+    "id": "34",
+    "houseName": "Sandalwood Stay",
+    "imageUrl": "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800",
+    "price": "1450",
+    "location": "Mysuru, Karnataka",
+    "rating": "4.8"
+  },
+  {
+    "id": "35",
+    "houseName": "The Red Brick",
+    "imageUrl": "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=800",
+    "price": "850",
+    "location": "Indore, MP",
+    "rating": "4.3"
+  },
+  {
+    "id": "37",
+    "houseName": "Tea Garden Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800",
+    "price": "1200",
+    "location": "Darjeeling, WB",
+    "rating": "4.6"
+  },
+  {
+    "id": "39",
+    "houseName": "Silk City Suites",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154166-d8897c8f930d?w=800",
+    "price": "950",
+    "location": "Surat, Gujarat",
+    "rating": "4.0"
+  },
+  {
+    "id": "40",
+    "houseName": "Grand Orchid",
+    "imageUrl": "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800",
+    "price": "3500",
+    "location": "New Delhi, India",
+    "rating": "4.7"
+  },
+  {
+    "id": "41",
+    "houseName": "Wildflower Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+    "price": "1300",
+    "location": "Wayanad, Kerala",
+    "rating": "4.4"
+  },
+  {
+    "id": "42",
+    "houseName": "City Center Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800",
+    "price": "2800",
+    "location": "Ahmedabad, Gujarat",
+    "rating": "4.2"
+  },
+  {
+    "id": "43",
+    "houseName": "Hilltop Haven",
+    "imageUrl": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800",
+    "price": "1600",
+    "location": "Coorg, Karnataka",
+    "rating": "4.8"
+  },
+  {
+    "id": "46",
+    "houseName": "Coastal Breeze",
+    "imageUrl": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800",
+    "price": "2300",
+    "location": "Mangalore, Karnataka",
+    "rating": "4.1"
+  },
+  {
+    "id": "47",
+    "houseName": "Diamond Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800",
+    "price": "4000",
+    "location": "Hyderabad, Telangana",
+    "rating": "4.6"
+  },
+  {
+    "id": "48",
+    "houseName": "Olive Branch",
+    "imageUrl": "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800",
+    "price": "1200",
+    "location": "Dehradun, UK",
+    "rating": "4.4"
+  },
+  {
+    "id": "49",
+    "houseName": "Silver Stone",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800",
+    "price": "1800",
+    "location": "Nashik, Maharashtra",
+    "rating": "4.3"
+  },
+  {
+    "id": "50",
+    "houseName": "Valley View",
+    "imageUrl": "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800",
+    "price": "1550",
+    "location": "Kodaikanal, TN",
+    "rating": "4.7"
+  },
+  {
+    "id": "51",
+    "houseName": "Royal Oak",
+    "imageUrl": "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=800",
+    "price": "2900",
+    "location": "Ludhiana, Punjab",
+    "rating": "4.5"
+  },
+  {
+    "id": "53",
+    "houseName": "Breezy Point",
+    "imageUrl": "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800",
+    "price": "1350",
+    "location": "Puri, Odisha",
+    "rating": "4.4"
+  },
+  {
+    "id": "55",
+    "houseName": "Urban Nest",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154166-d8897c8f930d?w=800",
+    "price": "3100",
+    "location": "Chennai, Tamil Nadu",
+    "rating": "4.6"
+  },
+  {
+    "id": "56",
+    "houseName": "Lake Palace",
+    "imageUrl": "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800",
+    "price": "3800",
+    "location": "Udaipur, Rajasthan",
+    "rating": "4.9"
+  },
+  {
+    "id": "57",
+    "houseName": "Modern Haven",
+    "imageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+    "price": "1900",
+    "location": "Vijayawada, AP",
+    "rating": "4.3"
+  },
+  {
+    "id": "58",
+    "houseName": "The Mansion",
+    "imageUrl": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800",
+    "price": "5000",
+    "location": "Kolkata, WB",
+    "rating": "4.7"
+  },
+  {
+    "id": "59",
+    "houseName": "Crest Villa",
+    "imageUrl": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800",
+    "price": "1100",
+    "location": "Guwahati, Assam",
+    "rating": "4.1"
+  },
+  {
+    "id": "60",
+    "houseName": "Grand Orchid",
+    "imageUrl": "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800",
+    "price": "3500",
+    "location": "New Delhi, India",
+    "rating": "4.7"
   }
 ]
