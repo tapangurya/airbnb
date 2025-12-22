@@ -1,0 +1,6 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+@import "tailwindcss";
+
+/* run command npx @tailwindcss/cli -i ./views/input.css -o ./public/output.css --watch */
