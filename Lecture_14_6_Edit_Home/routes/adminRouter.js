@@ -12,5 +12,3 @@ adminRouter.get('/edit-home/:homeId',adminController.getEditHome );
 adminRouter.post('/edit-home',adminController.postEditHome );
 adminRouter.post('/delete-home/:homeId',adminController.postDeleteHome );
 exports.adminRouter = adminRouter;
-
-// http://localhost:3000/Admin/edit-home/1
