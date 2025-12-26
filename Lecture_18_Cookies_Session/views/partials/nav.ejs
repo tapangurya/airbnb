@@ -1,0 +1,90 @@
+<nav class="bg-gray-900 px-6 py-4">
+  <ul class="flex items-center gap-6 text-white font-medium">
+    <li>
+      <a
+        href="/"
+        class="<%= currentPage === 'home' ? 'bg-gray-700 py-2 px-3 rounded text-amber-400 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700 py-2 px-3 rounded transition duration-300' %>"
+        >airbnb</a
+      >
+    </li>
+    <% if (isLoggedIn) { %>
+
+    <li>
+      <a
+        href="/home-list"
+        class="<%= currentPage === 'home-list' ? 'bg-gray-700 py-2 px-3 rounded text-amber-400' : 'hover:bg-gray-700 py-2 px-3 rounded duration-300 hover:text-amber-400 transition' %>"
+      >
+        Homes List
+      </a>
+    </li>
+
+    <li>
+      <a
+        href="/admin/add-home"
+        class="<%= currentPage === 'add-home' ? 'bg-gray-700 py-2 px-3 rounded text-amber-400 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700 py-2 px-3 rounded transition duration-300' %>"
+      >
+        Add Home
+      </a>
+    </li>
+
+    <li>
+      <a
+        href="/admin/home-list"
+        class="<%= currentPage === 'aadmin-home-list' ? 'bg-gray-700 py-2 px-3 rounded text-amber-400 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700 py-2 px-3 rounded transition duration-300' %>"
+      >
+        Admin Home List
+      </a>
+    </li>
+
+    <li>
+      <a
+        href="/favorite"
+        class="<%= currentPage === 'favorite' ? 'bg-gray-700 py-2 px-3 rounded text-amber-400 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700 py-2 px-3 rounded transition duration-300' %>"
+      >
+        Favorite
+      </a>
+    </li>
+
+    <li>
+      <a
+        href="/booking"
+        class="<%= currentPage === 'booking' ? 'bg-gray-700 py-2 px-3 rounded text-amber-400 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700 py-2 px-3 rounded transition duration-300' %>"
+      >
+        Bookings
+      </a>
+    </li>
+
+    <% } %>
+
+    <li>
+      <% if (!isLoggedIn) { %>
+      <a
+        href="/login"
+        class="<%= currentPage === 'login' ? 'bg-gray-700 py-2 px-3 rounded text-amber-400 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700 py-2 px-3 rounded transition duration-300' %>"
+      >
+        Login Here
+      </a>
+      <% } else { %>
+      <form action="/logout" method="POST" class="inline-flex">
+        <button
+          type="submit"
+          class="py-2 px-3 rounded transition duration-300 hover:bg-gray-700 hover:text-amber-400 text-white font-medium"
+        >
+          Logout
+        </button>
+      </form>
+
+      <% } %>
+    </li>
+
+    <!--     
+    <li>
+      <a
+        href="/register"
+        class="<%= currentPage.toLowerCase() === 'register'?'text-amber-400' :'hover:text-amber-400 transition'%>"
+      >
+        Register Here
+      </a>
+    </li> -->
+  </ul>
+</nav>

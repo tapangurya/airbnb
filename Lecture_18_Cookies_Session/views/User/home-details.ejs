@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+
+  <body>
+    <%- include('../partials/nav') %>
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <!-- Home Details Card -->
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <!-- Image Section -->
+        <div class="w-full bg-gray-100">
+          <img
+            src="<%= home.imageUrl %>"
+            alt="Home Image"
+            class="w-full max-h-[600px] object-contain mx-auto"
+          />
+        </div>
+
+        <!-- Content Section -->
+        <div class="p-6 space-y-6">
+          <!-- Title & Location -->
+          <div>
+            <h1 class="text-2xl font-bold text-gray-800">
+              <%= home.houseName %>
+            </h1>
+            <p class="text-sm text-gray-500 mt-1 flex items-center gap-1">
+              📍 <%= home.location %>
+            </p>
+          </div>
+
+          <!-- Info Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div class="bg-gray-50 rounded-lg p-4">
+              <p class="text-sm text-gray-500">Guests</p>
+              <p class="text-lg font-semibold text-gray-800">
+                <!-- <%= home.guests %> -->
+              </p>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+              <p class="text-sm text-gray-500">Bedrooms</p>
+              <p class="text-lg font-semibold text-gray-800">
+                <!-- <%= home.bedrooms %> -->
+              </p>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+              <p class="text-sm text-gray-500">Bathrooms</p>
+              <p class="text-lg font-semibold text-gray-800">
+                <!-- <%= home.bathrooms %> -->
+              </p>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+              <p class="text-sm text-gray-500">Price / Night</p>
+              <p class="text-lg font-semibold text-gray-800">
+                ₹ <%= home.price %>
+              </p>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800 mb-2">
+              About this home
+            </h2>
+            <p class="text-gray-600 leading-relaxed">
+              <!-- <%= home.description %> -->
+            </p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href="/"
+              class="flex-1 text-center px-6 py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+            >
+              ← Back to Homes
+            </a>
+
+            <a
+              href="/reserve/<%= home._id %>"
+              class="flex-1 text-center px-6 py-3 rounded-lg bg-rose-500 text-white font-semibold hover:bg-rose-600 transition"
+            >
+              Reserve Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
