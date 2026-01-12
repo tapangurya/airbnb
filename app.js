@@ -37,7 +37,7 @@ if (!mongoUrl) {
 const randomString =(length)=>{
   const characters = 'abcdefghijklmnopqrstuvwxyz';
   let result ='';
-  for(let i=0;i<characters.length;i++){
+  for(let i=0;i<length;i++){
     result +=characters.charAt(Math.floor(Math.random()*characters.length));
   }
   return result;
@@ -131,7 +131,6 @@ app.use("/SuperAdmin", (req, res, next) => {
   // Not authorized
   return res.redirect("/SuperAdmin/super-login");
 });
-app.use("/SuperAdmin", superAdminRout);
 //! ================== ADMIN AUTH GUARD ==================
 app.use("/admin", (req, res, next) => {
   if (req.isLoggedIn) {
