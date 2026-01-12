@@ -4,7 +4,7 @@ const fs = require("fs");
 const Home = require("../Model/home");
 const Booking = require("../Model/book");
 const logActivity = require("../utils/activityLogger");
-
+const Users = require('../Model/users');
 exports.getAddHome = (req, resp, next) => {
   resp.render("Admin/add-home", {
     title: "airbnb-admin-add-home",

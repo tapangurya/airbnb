@@ -3,9 +3,244 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>activelogs</title>
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .glass-panel {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(12px);
+      }
+    </style>
   </head>
-  <body>
-    <h1>Active logs</h1>
+
+  <body class="bg-slate-900 text-slate-200 min-h-screen flex flex-col">
+    <%- include("../partials/admin-nav") %>
+
+    <div class="max-w-7xl mx-auto p-6 flex-grow w-full">
+      <div
+        class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4"
+      >
+        <div>
+          <h1 class="text-3xl font-bold text-white flex items-center gap-3">
+            <div class="p-2 bg-indigo-500/20 rounded-lg">
+              <i class="ri-pulse-line text-indigo-400"></i>
+            </div>
+            System Activity
+          </h1>
+          <p class="text-slate-500 mt-1 text-sm">
+            Monitor real-time system events and audit trails.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <i
+              class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
+            ></i>
+            <input
+              type="text"
+              placeholder="Filter logs..."
+              class="bg-slate-800 border border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64 transition-all"
+            />
+          </div>
+          <button
+            onclick="window.location.reload()"
+            class="p-2 bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 transition-colors"
+          >
+            <i class="ri-refresh-line"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="glass-panel p-5 rounded-2xl border border-slate-700/50">
+          <p class="text-slate-500 text-xs font-bold uppercase tracking-wider">
+            Total Events
+          </p>
+          <h3 class="text-2xl font-bold text-white mt-1">
+            <%= activities.length %>
+          </h3>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl border border-slate-700/50">
+          <p class="text-slate-500 text-xs font-bold uppercase tracking-wider">
+            System Status
+          </p>
+          <div class="flex items-center gap-2 mt-1">
+            <span
+              class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"
+            ></span>
+            <h3 class="text-lg font-bold text-white">Live Monitoring</h3>
+          </div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl border border-slate-700/50">
+          <p class="text-slate-500 text-xs font-bold uppercase tracking-wider">
+            Storage Policy
+          </p>
+          <h3 class="text-lg font-bold text-white mt-1">Auto-purge 30d</h3>
+        </div>
+      </div>
+
+      <div
+        class="bg-slate-800/40 rounded-2xl border border-slate-800 overflow-hidden"
+      >
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-slate-800/80 text-slate-400 text-left">
+                <th
+                  class="p-4 font-semibold uppercase tracking-tight text-[11px]"
+                >
+                  Actor
+                </th>
+                <th
+                  class="p-4 font-semibold uppercase tracking-tight text-[11px]"
+                >
+                  Action Type
+                </th>
+                <th
+                  class="p-4 font-semibold uppercase tracking-tight text-[11px]"
+                >
+                  Entity Target
+                </th>
+                <th
+                  class="p-4 font-semibold uppercase tracking-tight text-[11px]"
+                >
+                  Description
+                </th>
+                <th
+                  class="p-4 font-semibold uppercase tracking-tight text-[11px] text-right"
+                >
+                  Timestamp
+                </th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-slate-700/50">
+              <% if (activities && activities.length > 0) { %> <%
+              activities.forEach(log => { %>
+              <tr class="hover:bg-indigo-500/[0.03] transition-colors group">
+                <td class="p-4">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-8 h-8 rounded bg-slate-700 flex items-center justify-center text-slate-400 font-bold text-[10px]"
+                    >
+                      <%= log.actorType.substring(0,2).toUpperCase() %>
+                    </div>
+                    <div>
+                      <p class="font-bold text-white leading-none capitalize">
+                        <%= log.actorType %>
+                      </p>
+                      <p class="text-[10px] text-slate-500 font-mono mt-1">
+                        <%= log.actorId %>
+                      </p>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="p-4">
+                  <span
+                    class="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-widest border <%= log.action.includes('CREATE') ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : log.action.includes('DELETE') ? 'bg-rose-500/10 text-rose-500 border-rose-500/20' : log.action.includes('LOGIN') ? 'bg-blue-500/10 text-blue-500 border-blue-500/20' : log.action.includes('BLOCK') ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 'bg-slate-700/30 text-slate-400 border-slate-600/30' %>"
+                  >
+                    <%= log.action %>
+                  </span>
+                </td>
+
+                <td class="p-4">
+                  <div class="flex flex-col">
+                    <span class="text-white font-medium capitalize"
+                      ><%= log.entityType || 'N/A' %></span
+                    >
+                    <span class="text-[10px] text-slate-600 font-mono"
+                      ><%= log.entityId || '---' %></span
+                    >
+                  </div>
+                </td>
+
+                <td
+                  class="p-4 text-slate-400 max-w-xs group-hover:text-slate-300 transition-colors"
+                >
+                  <%= log.description %>
+                </td>
+
+                <td class="p-4 text-right">
+                  <p class="text-slate-300 font-medium tracking-tight">
+                    <%= new Date(log.createdAt).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}) %>
+                  </p>
+                  <p
+                    class="text-[10px] text-slate-600 uppercase tracking-tighter"
+                  >
+                    <%= new Date(log.createdAt).toLocaleDateString() %>
+                  </p>
+                </td>
+              </tr>
+              <% }) %> <% } else { %>
+              <tr>
+                <td colspan="5" class="p-12 text-center text-slate-600 italic">
+                  <i class="ri-ghost-line text-4xl block mb-2 opacity-20"></i>
+                  No activity logs registered in this period.
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-auto border-t border-slate-800 bg-slate-900/50 py-8 px-6">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6"
+      >
+        <div class="flex items-center gap-2">
+          <div
+            class="w-6 h-6 bg-indigo-600 rounded flex items-center justify-center"
+          >
+            <i class="ri-shield-check-line text-white text-xs"></i>
+          </div>
+          <span class="text-sm font-bold text-white"
+            >Super Admin Control Panel</span
+          >
+        </div>
+
+        <div
+          class="flex items-center gap-8 text-xs text-slate-500 uppercase tracking-widest font-semibold"
+        >
+          <a href="#" class="hover:text-indigo-400 transition-colors"
+            >Privacy Policy</a
+          >
+          <a href="#" class="hover:text-indigo-400 transition-colors"
+            >System Health</a
+          >
+          <a href="#" class="hover:text-indigo-400 transition-colors"
+            >Documentation</a
+          >
+        </div>
+
+        <p class="text-xs text-slate-600">
+          &copy; 2026 AdminDash. Node.js v20.x | System Time:
+          <span id="footer-time"></span>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Update live time in footer
+      setInterval(() => {
+        document.getElementById("footer-time").innerText =
+          new Date().toLocaleTimeString();
+      }, 1000);
+    </script>
   </body>
 </html>

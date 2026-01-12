@@ -1,9 +1,5 @@
 const SystemActivity = require("../Model/SystemActivity");
 
-/**
- * GET /superadmin/activity-log
- * View system-wide activity logs
- */
 exports.getActivityLogs = async (req, res) => {
   try {
     
@@ -21,6 +17,6 @@ exports.getActivityLogs = async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching activity logs:", error);
-    return res.redirect("/superadmin");
+    return res.redirect("/SuperAdmin/dashboard");
   }
 };

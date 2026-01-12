@@ -177,14 +177,7 @@
                       title="View Homes"
                     >
                       <i class="ri-home-gear-line text-lg"></i>
-                    </a>
-
-                    <a
-                      href="/superadmin/admins/<%= admin._id %>/add-home"
-                      class="text-gray-400 hover:text-indigo-400 p-2 rounded-lg hover:bg-indigo-500/10 transition-all duration-200 hover:scale-110"
-                      title="Add Home"
-                    >
-                      <i class="ri-add-box-line text-lg"></i>
+                      <span>AllHomes</span>
                     </a>
 
                     <div class="h-4 w-px bg-gray-700 mx-1"></div>
@@ -196,12 +189,29 @@
                     >
                       <button
                         type="submit"
-                        class="p-2 rounded-lg transition-all duration-200 hover:scale-110 <%= admin.isBlocked ? 'text-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-400' : 'text-red-500 hover:bg-red-500/10 hover:text-red-400' %>"
                         title="<%= admin.isBlocked ? 'Unblock User' : 'Block User' %>"
+                        class="group flex items-center gap-2 px-3 py-2 rounded-xl font-medium transition-all duration-300 <%= admin.isBlocked ? 'text-emerald-500 bg-emerald-500/5 hover:bg-emerald-500/20 ring-1 ring-inset ring-emerald-500/20' : 'text-rose-500 bg-rose-500/5 hover:bg-rose-500/20 ring-1 ring-inset ring-rose-500/20' %>"
                       >
-                        <i
-                          class="<%= admin.isBlocked ? 'ri-lock-unlock-line' : 'ri-lock-2-line' %> text-lg"
-                        ></i>
+                        <div class="relative flex items-center justify-center">
+                          <i
+                            class="<%= admin.isBlocked ? 'ri-lock-unlock-line' : 'ri-lock-2-line' %> text-xl transition-transform duration-300 group-hover:rotate-12"
+                          ></i>
+
+                          <% if (!admin.isBlocked) { %>
+                          <span class="absolute -top-1 -right-1 flex h-2 w-2">
+                            <span
+                              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"
+                            ></span>
+                            <span
+                              class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"
+                            ></span>
+                          </span>
+                          <% } %>
+                        </div>
+
+                        <span class="text-sm tracking-wide">
+                          <%= admin.isBlocked ? 'Unblock User' : 'Block User' %>
+                        </span>
                       </button>
                     </form>
                   </div>

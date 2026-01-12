@@ -3,9 +3,124 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title><%= title %></title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Remix Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <h1>manage user</h1>
+
+  <body class="bg-slate-900 min-h-screen text-slate-200">
+    <!-- Super Admin Navbar -->
+    <%- include("../partials/admin-nav") %>
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-bold flex items-center gap-2">
+            <i class="ri-group-line text-indigo-400"></i>
+            Manage Users
+          </h1>
+          <p class="text-sm text-slate-400 mt-1">
+            View, block, or unblock platform users
+          </p>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div
+        class="overflow-x-auto bg-slate-800 border border-slate-700 rounded-xl"
+      >
+        <table class="w-full text-sm">
+          <thead class="bg-slate-700/50 text-slate-400 uppercase text-xs">
+            <tr>
+              <th class="p-4 text-left">Name</th>
+              <th class="p-4 text-left">Email</th>
+              <th class="p-4 text-left">Status</th>
+              <th class="p-4 text-left">Joined</th>
+              <th class="p-4 text-center">Action</th>
+            </tr>
+          </thead>
+
+          <tbody class="divide-y divide-slate-700">
+            <% if (users && users.length > 0) { %> <% users.forEach(userItem =>
+            { %>
+            <tr class="hover:bg-slate-700/30 transition">
+              <!-- Name -->
+              <td class="p-4 font-medium"><%= userItem.name || "N/A" %></td>
+
+              <!-- Email -->
+              <td class="p-4 text-slate-400"><%= userItem.email %></td>
+
+              <!-- Status -->
+              <td class="p-4">
+                <% if (userItem.isBlocked) { %>
+                <span
+                  class="px-2 py-1 text-xs font-semibold rounded bg-red-500/20 text-red-400"
+                >
+                  Blocked
+                </span>
+                <% } else { %>
+                <span
+                  class="px-2 py-1 text-xs font-semibold rounded bg-green-500/20 text-green-400"
+                >
+                  Active
+                </span>
+                <% } %>
+              </td>
+
+              <!-- Joined -->
+              <td class="p-4 text-slate-500 text-xs">
+                <%= new Date(userItem.createdAt).toLocaleDateString() %>
+              </td>
+
+              <!-- Action -->
+              <td class="p-4 text-center">
+                <form
+                  action="/superadmin/users/toggle/<%= userItem._id %>"
+                  method="POST"
+                  onsubmit="return confirm('Are you sure you want to change this user status?')"
+                >
+                  <% if (userItem.isBlocked) { %>
+                  <button
+                    class="px-3 py-1.5 text-xs font-semibold rounded bg-green-600 hover:bg-green-700 transition"
+                  >
+                    Unblock
+                  </button>
+                  <% } else { %>
+                  <button
+                    class="px-3 py-1.5 text-xs font-semibold rounded bg-red-600 hover:bg-red-700 transition"
+                  >
+                    Block
+                  </button>
+                  <% } %>
+                </form>
+              </td>
+            </tr>
+            <% }) %> <% } else { %>
+            <tr>
+              <td colspan="5" class="p-8 text-center text-slate-500">
+                <i
+                  class="ri-user-unfollow-line text-3xl block mb-2 opacity-40"
+                ></i>
+                No users found
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Info -->
+      <p class="mt-4 text-sm text-slate-500">
+        Showing <%= users.length %> users
+      </p>
+    </main>
   </body>
 </html>

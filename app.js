@@ -1,6 +1,6 @@
 //! ================== CORE MODULES ==================
 const path = require("path");
-
+require("dotenv").config();
 //! ================== EXTERNAL MODULES ==================
 const express = require("express");
 const session = require("express-session");
@@ -12,25 +12,25 @@ const userRouter = require("./routes/userRouter");
 const { adminRouter } = require("./routes/adminRouter");
 const superAdminRout = require("./routes/superAdminRouter");
 const { authRouter } = require("./routes/authRouter");
+const { superAuthRouter } = require("./routes/superAuthRouter");
 const rootPath = require("./utils/pathutil");
 const connectDB = require("./utils/databaseutil");
 const { pageNotFound } = require("./Controller/404");
 
 //! ================== APP INIT ==================
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //! ================== VIEW ENGINE ==================
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 // !================== SESSION STORE ==================
-const mongoUrl =
-  "mongodb+srv://root:root@completenodejs.sgck7ib.mongodb.net/airbnb2?retryWrites=true&w=majority";
-const store = new MongoDBStore({
-  uri: mongoUrl,
-  collection: "sessions",
-});
+const mongoUrl = process.env.DB_URL;
+if (!mongoUrl) {
+  throw new Error("DB_URL is not defined in environment variables");
+}
+
 
 //! File or Photo Upload
 //* create a random photo name because of avoid the duplicate or make unique name for each photo name 
@@ -80,22 +80,24 @@ app.use("/Admin/homesImages/",express.static(path.join(rootPath, "homesImages"))
 app.use("/homesImages/",express.static(path.join(rootPath, "homesImages")));
 
 //! ================== SESSION MIDDLEWARE (BEFORE ROUTES) ==================
+const store = new MongoDBStore({
+  uri: mongoUrl,
+  collection: "sessions",
+});
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: store,
+}))
 
-app.use(
-  session({
-    secret: "completeNodeJs",
-    resave: false,
-    saveUninitialized: true,
-    store: store,
-  })
-);
 //! ================== LOGIN STATUS MIDDLEWARE ==================
 app.use((req, res, next) => {
-  req.isLoggedIn = req.session.isLoggedIn;
+  req.isLoggedIn = req.session.isLoggedIn || false;
   next();
 });
 app.use((req, res, next) => {
-  req.isSuperAdminLoggedIn = req.session.isSuperAdminLoggedIn;
+  req.isSuperAdminLoggedIn = req.session.isSuperAdminLoggedIn ||false;
   next();
 });
 
@@ -103,10 +105,12 @@ app.use((req, res, next) => {
 //! ================== ROUTES ==================
 
 app.use(authRouter);
+app.use("/SuperAdmin",superAuthRouter);
 app.use(userRouter);
-app.use("/superadmin", superAdminRout);
+app.use("/SuperAdmin", superAdminRout);
+
 //! ================== SUPER ADMIN AUTH GUARD ==================
-app.use("/superadmin", (req, res, next) => {
+app.use("/SuperAdmin", (req, res, next) => {
   // Allow login & signup without authentication
   if (
     req.path === "/super-login" ||
@@ -125,9 +129,9 @@ app.use("/superadmin", (req, res, next) => {
   }
 
   // Not authorized
-  return res.redirect("/superadmin/super-login");
+  return res.redirect("/SuperAdmin/super-login");
 });
-app.use("/superadmin", superAdminRout);
+app.use("/SuperAdmin", superAdminRout);
 //! ================== ADMIN AUTH GUARD ==================
 app.use("/admin", (req, res, next) => {
   if (req.isLoggedIn) {

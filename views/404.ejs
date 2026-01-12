@@ -2,7 +2,9 @@
 <html lang="en">
   <%- include("partials/head") %>
 
-  <body class="min-h-screen bg-gray-100 flex items-center justify-center">
+  <body
+    class="min-h-screen bg-gray-100 flex-grow flex flex-col items-center justify-center"
+  >
     <main class="text-center max-w-md px-6">
       <!-- Error Code -->
       <h1 class="text-8xl font-extrabold text-amber-500 tracking-tight">404</h1>
@@ -31,5 +33,18 @@
         </button>
       </div>
     </main>
+    <%- include('partials/footer') %>
+    <script>
+      // staggered card entrance
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".js-card");
+        cards.forEach((card, i) => {
+          setTimeout(() => {
+            card.classList.remove("opacity-0", "translate-y-4");
+            card.classList.add("opacity-100", "translate-y-0");
+          }, i * 80);
+        });
+      });
+    </script>
   </body>
 </html>

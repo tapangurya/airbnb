@@ -8,6 +8,9 @@ const SystemActivity = require("../Model/SystemActivity");
 
 exports.getDashboard = async (req, res) => {
   try {
+    if(!req.session.isSuperAdminLoggedIn){
+      return res.redirect('/SuperAdmin/super-login');
+    }
     // ===== COUNTS =====
     const totalUsers = await Users.countDocuments({ role: "user" });
     const totalAdmins = await Users.countDocuments({ role: "admin" });

@@ -158,12 +158,11 @@ exports.getBookings = async (req, res) => {
       return res.redirect("/login");
     }
 
-    const bookings = await Booking.find({
+    let bookings = await Booking.find({
       user: req.session.user.id,
     }).populate("home");
 
-    console.log("User id is:", req.session.user.id);
-    console.log("Bookings:", bookings);
+    bookings = bookings.filter(b => b.home);
 
     res.render("User/bookings", {
       title: "airbnb-user-booked-home",
@@ -174,7 +173,7 @@ exports.getBookings = async (req, res) => {
     });
   } catch (error) {
     console.error("Error while get bookings:", error);
-    res.redirect("/");
+    res.redirect("/home-list");
   }
 };
 

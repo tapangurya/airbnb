@@ -6,7 +6,7 @@ const logActivity = require("../utils/activityLogger");
 
 /* ===================== LOGIN ===================== */
 exports.getIndex = (req, res) => {
-  res.render("SuperAdmin/super-login", {
+  res.render("SuperAdmin/index", {
     title: "Super Admin Login",
     currentPage: "superAdmin-login",
     isSuperAdminLoggedIn: false,
@@ -112,7 +112,7 @@ exports.postLogout = async (req, res) => {
   }
 
   req.session.destroy(() => {
-    res.redirect("/superadmin/super-login");
+    res.redirect("/SuperAdmin/super-login");
   });
 };
 

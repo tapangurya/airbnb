@@ -69,12 +69,13 @@
 
           <!-- Action Buttons -->
           <div class="flex flex-col sm:flex-row gap-4">
-            <a
-              href="/"
+            <button
+              type="button"
+              onclick="history.back()"
               class="flex-1 text-center px-6 py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             >
-              ← Back to Homes
-            </a>
+              ← Back
+            </button>
 
             <a
               href="/reserve-home/<%= home._id %>"
@@ -86,5 +87,18 @@
         </div>
       </div>
     </main>
+    <%- include('../partials/footer') %>
+    <script>
+      // staggered card entrance
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".js-card");
+        cards.forEach((card, i) => {
+          setTimeout(() => {
+            card.classList.remove("opacity-0", "translate-y-4");
+            card.classList.add("opacity-100", "translate-y-0");
+          }, i * 80);
+        });
+      });
+    </script>
   </body>
 </html>
