@@ -1,0 +1,279 @@
+<nav
+  class="bg-gray-900 px-6 py-2 fixed top-0 left-0 right-0 z-50 shadow border-b border-gray-800"
+>
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <a
+      href="<%= isLoggedIn && user?.role === 'admin' ? '/Admin/home-list' : isLoggedIn && user?.role === 'user' ? '/home-list' : '/' %>"
+      class="text-white font-bold text-xl flex items-center gap-2"
+    >
+      <svg
+        class="w-6 h-6 text-amber-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 11.5L12 4l9 7.5v6A2.5 2.5 0 0118.5 21h-13A2.5 2.5 0 013 17.5v-6z"
+        ></path>
+      </svg>
+      <span class="inline">airbnb</span>
+    </a>
+
+    <button
+      id="menu-toggle"
+      class="sm:hidden text-white focus:outline-none flex items-center gap-2 px-2 py-1 rounded-md hover:bg-gray-800 transition duration-300"
+      aria-expanded="false"
+      aria-controls="main-nav"
+      aria-label="Toggle navigation"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        ></path>
+      </svg>
+      <span id="menu-toggle-text" class="text-sm font-medium ml-1">Menu</span>
+    </button>
+
+    <ul
+      id="main-nav"
+      class="hidden sm:flex items-center gap-6 p-2 text-white font-medium transition-all duration-300 max-h-0 overflow-hidden sm:overflow-visible sm:max-h-full"
+    >
+      <% if (isLoggedIn && user.role === 'admin') { %>
+      <li>
+        <a
+          href="/Admin/home-list"
+          class="<%= currentPage === 'admin-home-list' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Admin Home List</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/Admin/booking-requests"
+          class="<%= currentPage === 'booking-requests' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Booking Requests</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/Admin/add-home"
+          class="<%= currentPage === 'add-home' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Add Home</span>
+        </a>
+      </li>
+
+      <% } else if(isLoggedIn && user.role ==='user') { %>
+      <li>
+        <a
+          href="/home-list"
+          class="<%= currentPage === 'home-list' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Homes List</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/favorite"
+          class="<%= currentPage === 'favorite' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Favorite</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/bookings"
+          class="<%= currentPage === 'bookings' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Bookings</span>
+        </a>
+      </li>
+      <% } %> <% if (!isLoggedIn) { %>
+      <li>
+        <a
+          href="/"
+          class="<%= currentPage === 'home' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/login"
+          class="<%= currentPage === 'login' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Login</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/register"
+          class="<%= currentPage === 'register' ? 'bg-gray-700 text-amber-400' : 'hover:text-amber-400 hover:bg-gray-700' %> py-2 px-3 rounded flex items-center gap-2 transition duration-200 hover:scale-105"
+        >
+          <span>Sign up</span>
+        </a>
+      </li>
+
+      <% } else { %> <% if (user) { %>
+      <li class="relative">
+        <button
+          type="button"
+          id="profile-toggle"
+          class="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-amber-300"
+        >
+          <div
+            class="w-8 h-8 rounded-full bg-amber-500 text-gray-900 flex items-center justify-center font-bold uppercase"
+          >
+            <%= user.firstName?.charAt(0) || 'U' %>
+          </div>
+          <div class="hidden sm:flex flex-col text-left leading-tight">
+            <span class="text-sm font-semibold">
+              <%= user.firstName %> <%= user.lastName || '' %>
+            </span>
+            <span class="text-xs text-gray-400 capitalize">
+              <%= user.role %>
+            </span>
+          </div>
+          <svg
+            class="w-4 h-4 text-gray-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+
+        <div
+          id="profile-menu"
+          class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border border-gray-700 rounded shadow-lg z-50"
+        >
+          <a
+            href="<%= user.role === 'admin' ? '/Admin/profile' : '/profile' %>"
+            class="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+          >
+            Profile
+          </a>
+          <form action="/logout" method="POST">
+            <button
+              type="submit"
+              class="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-700"
+            >
+              Logout
+            </button>
+          </form>
+        </div>
+      </li>
+      <% } %> <% } %>
+    </ul>
+  </div>
+
+  <script>
+    // ----------------------------
+    // 1. Mobile Menu Logic
+    // ----------------------------
+    (function () {
+      const menuToggle = document.getElementById("menu-toggle");
+      const menuText = document.getElementById("menu-toggle-text");
+      const mainNav = document.getElementById("main-nav");
+
+      if (!menuToggle || !mainNav || !menuText) return;
+
+      const hamburgerSVG =
+        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+      const closeSVG =
+        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+
+      const toggleMenu = () => {
+        const isHidden = mainNav.classList.contains("hidden");
+        if (isHidden) {
+          // Open
+          mainNav.classList.remove("hidden", "max-h-0");
+          mainNav.classList.add("block", "py-4", "max-h-96");
+          menuToggle.classList.add("bg-gray-800");
+          menuToggle.setAttribute("aria-expanded", "true");
+          menuText.textContent = "Close";
+          menuToggle.querySelector("svg").outerHTML = closeSVG;
+        } else {
+          // Close
+          mainNav.classList.add("hidden", "max-h-0");
+          mainNav.classList.remove("block", "py-4", "max-h-96");
+          menuToggle.classList.remove("bg-gray-800");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuText.textContent = "Menu";
+          menuToggle.querySelector("svg").outerHTML = hamburgerSVG;
+        }
+      };
+
+      menuToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      // Close on outside click
+      document.addEventListener("click", function (e) {
+        if (
+          !mainNav.classList.contains("hidden") &&
+          !menuToggle.contains(e.target) &&
+          !mainNav.contains(e.target)
+        ) {
+          toggleMenu();
+        }
+      });
+    })();
+
+    // ----------------------------
+    // 2. Profile Dropdown Logic
+    // ----------------------------
+    (function () {
+      const profileBtn = document.getElementById("profile-toggle");
+      const profileMenu = document.getElementById("profile-menu");
+
+      // If button doesn't exist (user logged out), stop.
+      if (!profileBtn || !profileMenu) return;
+
+      profileBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        profileMenu.classList.toggle("hidden");
+      });
+
+      // Close when clicking anywhere else
+      document.addEventListener("click", function (e) {
+        if (
+          !profileMenu.classList.contains("hidden") &&
+          !profileBtn.contains(e.target) &&
+          !profileMenu.contains(e.target)
+        ) {
+          profileMenu.classList.add("hidden");
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") profileMenu.classList.add("hidden");
+      });
+    })();
+  </script>
+</nav>
+
+<div class="h-20 sm:h-24"></div>

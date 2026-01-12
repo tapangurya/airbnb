@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <%- include('../partials/nav') %>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="mb-10">
+        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+          Your Booked Homes
+        </h1>
+        <p class="text-gray-500 mt-2 text-lg">
+          Manage your upcoming stays and past trips.
+        </p>
+      </div>
+
+      <% if (!bookings || bookings.length === 0) { %>
+      <div
+        class="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-gray-300 shadow-sm text-center"
+      >
+        <svg
+          class="w-16 h-16 text-gray-300 mb-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+          ></path>
+        </svg>
+        <h3 class="text-lg font-medium text-gray-900">No bookings yet</h3>
+        <p class="text-gray-500 max-w-sm mt-1">
+          It looks like you haven't booked any homes yet. Explore our listings
+          to find your next stay.
+        </p>
+        <a
+          href="/homes"
+          class="mt-6 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full transition-colors shadow-sm"
+        >
+          Browse Homes
+        </a>
+      </div>
+      <% } else { %>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% bookings.forEach(booking => { %>
+
+        <div
+          class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col"
+        >
+          <a
+            href="/home/<%= booking.home._id %>"
+            class="block relative h-60 overflow-hidden"
+          >
+            <img
+              src="<%= booking.home.imageUrl %>"
+              alt="<%= booking.home.houseName %>"
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60"
+            ></div>
+
+            <div class="absolute top-4 right-4">
+              <% if (booking.status === 'pending') { %>
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-400/90 text-yellow-900 backdrop-blur-sm shadow-sm"
+              >
+                <span
+                  class="w-1.5 h-1.5 rounded-full bg-yellow-700 mr-1.5"
+                ></span>
+                Pending
+              </span>
+              <% } else if (booking.status === 'confirmed') { %>
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500/90 text-white backdrop-blur-sm shadow-sm"
+              >
+                <svg
+                  class="w-3 h-3 mr-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                Confirmed
+              </span>
+              <% } else { %>
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-500/90 text-white backdrop-blur-sm shadow-sm"
+              >
+                <%= booking.status %>
+              </span>
+              <% } %>
+            </div>
+          </a>
+
+          <div class="p-5 flex-1 flex flex-col">
+            <div class="mb-4">
+              <h2
+                class="text-xl font-bold text-gray-900 leading-tight mb-1 group-hover:text-blue-600 transition-colors"
+              >
+                <%= booking.home.houseName %>
+              </h2>
+              <div class="flex items-center text-sm text-gray-500">
+                <svg
+                  class="w-4 h-4 mr-1 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+                <%= booking.home.location %>
+              </div>
+            </div>
+
+            <div
+              class="grid grid-cols-2 gap-3 mb-5 bg-gray-50 p-3 rounded-xl border border-gray-100"
+            >
+              <div class="col-span-1">
+                <p
+                  class="text-xs text-gray-500 uppercase font-semibold tracking-wider"
+                >
+                  Check-in
+                </p>
+                <p class="text-sm font-medium text-gray-900 mt-0.5">
+                  <%= booking.checkInDate.toDateString() %>
+                </p>
+              </div>
+              <div class="col-span-1">
+                <p
+                  class="text-xs text-gray-500 uppercase font-semibold tracking-wider"
+                >
+                  Check-out
+                </p>
+                <p class="text-sm font-medium text-gray-900 mt-0.5">
+                  <%= booking.checkOutDate.toDateString() %>
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100"
+            >
+              <div class="flex items-center text-gray-600 text-sm">
+                <svg
+                  class="w-5 h-5 mr-1.5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  ></path>
+                </svg>
+                <span class="font-medium"><%= booking.rooms %> Room(s)</span>
+              </div>
+              <div class="text-right">
+                <p class="text-xs text-gray-400">Total Price</p>
+                <p class="text-lg font-bold text-gray-900">
+                  ₹ <%= booking.totalPrice %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <% } %>
+    </main>
+  </body>
+</html>

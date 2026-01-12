@@ -1,0 +1,2 @@
+<!-- <%- include('../partials/favorite',{home,favourites}) %>
+remove from index.ejs -->

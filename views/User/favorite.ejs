@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../partials/head") %>
+  <body class="min-h-screen flex flex-col bg-gray-100">
+    <!-- Navbar -->
+    <%- include("../partials/nav") %>
+
+    <!-- Main Content -->
+    <main class="p-6">
+      <h1 class="text-indigo-700 text-3xl font-bold text-center mb-6">
+        Your Favorite Homes are here:
+      </h1>
+
+      <!-- Cards Grid -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+      >
+        <% if (homes.length === 0) { %>
+        <div
+          class="col-span-full py-12 flex flex-col items-center text-center text-gray-600"
+        >
+          <svg
+            class="w-16 h-16 mb-4 text-indigo-200"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M3 7h18M7 7v10a2 2 0 002 2h6a2 2 0 002-2V7"
+            />
+          </svg>
+          <p class="text-lg font-medium">No homes marked as favourite.</p>
+          <p class="text-sm mt-2">Add homes to favourites to see them here.</p>
+        </div>
+        <% } %> <% homes.forEach(home => { %>
+        <div
+          class="bg-white rounded-lg overflow-hidden group transform transition duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.03] opacity-0 translate-y-4 js-card"
+        >
+          <a href="/home/<%= home._id %>" class="block relative">
+            <img
+              src="<%= home.imageUrl %>"
+              alt="<%= home.houseName %>"
+              class="w-full h-48 sm:h-56 md:h-64 object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            />
+            <div
+              class="absolute top-3 left-3 bg-amber-600 text-white text-xs font-semibold px-2 py-1 rounded shadow"
+            >
+              ₹ <%= home.price %> / night
+            </div>
+          </a>
+
+          <div class="p-3">
+            <!-- Home Name -->
+            <h3 class="text-base font-semibold text-gray-800 truncate">
+              <%= home.houseName %>
+            </h3>
+
+            <!-- Location + Rating -->
+            <div
+              class="flex items-center justify-between mt-2 text-xs text-gray-600"
+            >
+              <span class="flex items-center gap-1 truncate"
+                >📍 <%= home.location %></span
+              >
+
+              <div class="flex items-center gap-0.5">
+                <% for (let i = 1; i <= 5; i++) { %> <% if (i <= home.rating) {
+                %>
+                <svg
+                  class="w-3.5 h-3.5 text-yellow-400 fill-current"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 15l-5.878 3.09L5.82 11.545.941 7.41l6.09-.885L10 1l2.969 5.525 6.09.885-4.879 4.136 1.699 6.545z"
+                  />
+                </svg>
+                <% } else { %>
+                <svg
+                  class="w-3.5 h-3.5 text-gray-300 fill-current"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 15l-5.878 3.09L5.82 11.545.941 7.41l6.09-.885L10 1l2.969 5.525 6.09.885-4.879 4.136 1.699 6.545z"
+                  />
+                </svg>
+                <% } %> <% } %>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center justify-between mt-4 gap-3">
+              <div class="text-sm text-amber-600 font-semibold">
+                ₹ <%= home.price %> / night
+              </div>
+
+              <div class="flex items-center gap-2">
+                <form action="/favourites/delete/<%=home._id%>" method="POST">
+                  <button
+                    type="submit"
+                    class="px-3 py-1 text-sm text-red-600 border border-red-200 rounded hover:bg-red-50 transition focus:outline-none focus:ring-2 focus:ring-red-200"
+                  >
+                    Remove
+                  </button>
+                </form>
+
+                <a
+                  href="/reserve-home/<%=home._id%>"
+                  class="inline-block px-3 py-1 text-sm bg-emerald-600 text-white rounded hover:bg-emerald-700 transition"
+                  >Reserve Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".js-card");
+        cards.forEach((card, i) => {
+          setTimeout(() => {
+            card.classList.remove("opacity-0", "translate-y-4");
+            card.classList.add("opacity-100", "translate-y-0");
+          }, i * 80);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Homes | Super Admin</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f111a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #33334d;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #4b4b6a;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-enter {
+        animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .delay-100 {
+        animation-delay: 100ms;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-[#0f111a] text-gray-300 min-h-screen flex flex-col antialiased"
+  >
+    <main
+      class="flex-grow p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full animate-enter"
+    >
+      <div class="sm:flex sm:items-center sm:justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+            Property Portfolio
+            <span class="text-gray-600 text-lg font-normal"
+              >/ <%= admin.firstName %></span
+            >
+          </h1>
+          <div class="mt-2 flex items-center gap-3 text-sm text-gray-400">
+            <span
+              class="flex items-center gap-1 bg-[#1e1e2d] px-2 py-1 rounded border border-gray-700"
+            >
+              <i class="ri-user-line text-indigo-400"></i>
+              <%= admin.firstName %> <%= admin.lastName || "" %>
+            </span>
+            <span
+              class="flex items-center gap-1 bg-[#1e1e2d] px-2 py-1 rounded border border-gray-700"
+            >
+              <i class="ri-mail-line text-indigo-400"></i>
+              <%= admin.email %>
+            </span>
+          </div>
+        </div>
+        <div class="mt-4 sm:mt-0">
+          <span
+            class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
+          >
+            <i class="ri-home-4-line mr-2"></i>
+            Total Homes: <%= homes.length %>
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% if (homes.length === 0) { %>
+        <div
+          class="col-span-full py-20 text-center flex flex-col items-center justify-center bg-[#1e1e2d] rounded-xl border border-gray-800 border-dashed"
+        >
+          <div class="bg-gray-800 p-4 rounded-full mb-4 animate-pulse">
+            <i class="ri-home-wifi-line text-4xl text-gray-600"></i>
+          </div>
+          <h3 class="text-lg font-medium text-white">No homes listed</h3>
+          <p class="mt-1 text-sm text-gray-500">
+            This admin has not added any properties yet.
+          </p>
+        </div>
+        <% } %> <% homes.forEach((home, index) => { %>
+        <div
+          class="group bg-[#1e1e2d] rounded-xl border border-gray-800 shadow-lg overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-500/30"
+        >
+          <div class="relative h-48 overflow-hidden">
+            <img
+              src="/<%= home.imageUrl %>"
+              alt="Home Image"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-[#1e1e2d] to-transparent opacity-60"
+            ></div>
+
+            <div
+              class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-2 py-1 rounded border border-white/10 flex items-center gap-1"
+            >
+              <i class="ri-money-dollar-circle-line text-emerald-400"></i>
+              ₹<%= home.price %> / night
+            </div>
+
+            <div
+              class="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-2 py-1 rounded border border-white/10 flex items-center gap-1"
+            >
+              <i class="ri-star-fill text-yellow-500"></i>
+              <%= home.rating %>
+            </div>
+          </div>
+
+          <div class="p-5 flex-grow flex flex-col">
+            <div class="flex justify-between items-start mb-2">
+              <h3
+                class="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors line-clamp-1"
+              >
+                <%= home.houseName %>
+              </h3>
+            </div>
+
+            <p class="text-sm text-gray-400 flex items-center gap-2 mb-4">
+              <i class="ri-map-pin-line text-gray-500"></i>
+              <span class="line-clamp-1"><%= home.location %></span>
+            </p>
+
+            <div class="mt-auto pt-4 border-t border-gray-700 flex justify-end">
+              <form
+                action="/superadmin/admins/<%= admin._id %>/homes/delete/<%= home._id %>"
+                method="POST"
+              >
+                <button
+                  class="flex items-center gap-2 bg-red-500/10 hover:bg-red-600 text-red-500 hover:text-white px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border border-red-500/20 hover:shadow-lg hover:shadow-red-900/30 active:scale-95"
+                >
+                  <i class="ri-delete-bin-line"></i>
+                  Delete Home
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <div class="mt-12 text-center text-xs text-gray-600">
+        &copy; 2026 Management System. All rights reserved.
+      </div>
+    </main>
+  </body>
+</html>

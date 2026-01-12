@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../partials/head") %>
+
+  <body class="bg-gray-100 font-sans">
+    <%- include('../partials/nav') %>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+      <h1 class="text-2xl font-bold mb-6">Booking Requests</h1>
+
+      <% if (!bookings || bookings.length === 0) { %>
+      <div class="bg-white p-6 rounded shadow text-gray-600">
+        No booking requests found.
+      </div>
+      <% } else { %>
+
+      <div class="overflow-x-auto bg-white rounded shadow">
+        <table class="min-w-full border-collapse">
+          <thead class="bg-gray-200 text-sm text-gray-700">
+            <tr>
+              <th class="px-4 py-3 text-left">Home</th>
+              <th class="px-4 py-3 text-left">User</th>
+              <th class="px-4 py-3 text-left">Dates</th>
+              <th class="px-4 py-3 text-left">Rooms</th>
+              <th class="px-4 py-3 text-left">Total</th>
+              <th class="px-4 py-3 text-left">Status</th>
+              <th class="px-4 py-3 text-center">Action</th>
+            </tr>
+          </thead>
+
+          <tbody class="divide-y">
+            <% bookings.forEach(b => { %>
+            <tr class="hover:bg-gray-50">
+              <!-- Home -->
+              <td class="px-4 py-3">
+                <img src="<%=b.home.imageUrl%>" alt="" class="w-10 h-10" />
+                <p class="font-medium"><%= b.home.houseName %></p>
+                <p class="text-xs text-gray-500"><%= b.home.location %></p>
+              </td>
+
+              <!-- User -->
+              <td class="px-4 py-3 text-sm">
+                <p><%= b.user.firstName %> <%= b.user.lastName || "" %></p>
+                <p class="text-xs text-gray-500"><%= b.user.email %></p>
+                <p class="text-xs text-gray-500"><%= b.user.phone %></p>
+              </td>
+
+              <!-- Dates -->
+              <td class="px-4 py-3 text-sm">
+                <p>In: <%= b.checkInDate.toDateString() %></p>
+                <p>Out: <%= b.checkOutDate.toDateString() %></p>
+              </td>
+
+              <!-- Rooms -->
+              <td class="px-4 py-3 text-sm">
+                <p><%= b.rooms %> room(s)</p>
+                <p class="text-xs text-gray-500">
+                  <%= b.guests.adult %> adults, <%= b.guests.children %>
+                  children
+                </p>
+              </td>
+
+              <!-- Total -->
+              <td class="px-4 py-3 font-semibold text-sm">
+                ₹ <%= b.totalPrice %>
+              </td>
+
+              <!-- Status -->
+              <td class="px-4 py-3 text-sm">
+                <% if (b.status === "pending") { %>
+                <span
+                  class="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded"
+                >
+                  Pending
+                </span>
+                <% } else if (b.status === "confirmed") { %>
+                <span
+                  class="px-2 py-1 text-xs bg-green-100 text-green-800 rounded"
+                >
+                  Confirmed
+                </span>
+                <% } else { %>
+                <span
+                  class="px-2 py-1 text-xs bg-gray-200 text-gray-800 rounded"
+                >
+                  <%= b.status %>
+                </span>
+                <% } %>
+              </td>
+
+              <!-- Actions -->
+              <td class="px-4 py-3 text-center">
+                <% if (b.status === "pending") { %>
+                <form
+                  action="/Admin/booking-approve"
+                  method="POST"
+                  class="inline"
+                >
+                  <input type="hidden" name="id" value="<%= b._id %>" />
+
+                  <button
+                    type="submit"
+                    class="px-3 py-1 bg-green-600 text-white text-xs rounded"
+                  >
+                    Approve
+                  </button>
+                </form>
+
+                <form
+                  action="/Admin/booking-reject"
+                  method="POST"
+                  class="inline"
+                >
+                  <input type="hidden" name="id" value="<%= b._id %>" />
+                  <button
+                    class="px-3 py-1 bg-red-600 text-white text-xs rounded"
+                  >
+                    Reject
+                  </button>
+                </form>
+                <% } else { %>
+                <span class="text-xs text-gray-400">No action</span>
+                <% } %>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <% } %>
+    </main>
+  </body>
+</html>

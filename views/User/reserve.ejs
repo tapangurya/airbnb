@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-50 font-sans">
+    <%- include('../partials/nav') %>
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="md:col-span-2">
+          <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">
+              Confirm your booking
+            </h1>
+
+            <form
+              action="/reserve-home"
+              method="POST"
+              class="space-y-6"
+              onsubmit="return validateForm()"
+            >
+              <input type="hidden" name="homeId" value="<%= home._id %>" />
+
+              <input
+                type="hidden"
+                name="pricePerNight"
+                id="pricePerNight"
+                value="<%= home.price %>"
+              />
+
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                  Your Trip
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Check-in</label
+                    >
+                    <input
+                      type="date"
+                      name="checkIn"
+                      id="checkIn"
+                      required
+                      class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      onchange="calculateTotal()"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Check-out</label
+                    >
+                    <input
+                      type="date"
+                      name="checkOut"
+                      id="checkOut"
+                      required
+                      class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      onchange="calculateTotal()"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                  Rooms & Guests
+                </h3>
+
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Number of Rooms</label
+                  >
+                  <input
+                    type="number"
+                    name="rooms"
+                    id="rooms"
+                    min="1"
+                    value="1"
+                    required
+                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-gray-50"
+                    onchange="validateRoomCount(); calculateTotal()"
+                  />
+                  <p class="text-xs text-gray-500 mt-1" id="roomHelperText">
+                    Automatic requirement based on guests (Max 4 guests or 2
+                    adults per room).
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Adults (13+)</label
+                    >
+                    <input
+                      type="number"
+                      name="adults"
+                      id="adults"
+                      min="1"
+                      value="1"
+                      required
+                      class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      oninput="updateRoomMin()"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Children (2-12)</label
+                    >
+                    <input
+                      type="number"
+                      name="children"
+                      id="children"
+                      min="0"
+                      value="0"
+                      class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      oninput="updateRoomMin()"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <hr class="border-gray-200" />
+
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                  Personal Details
+                </h3>
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      name="fullname"
+                      value="<%= user.firstName + ' ' + user.lastName %>"
+                      required
+                      class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                    />
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Email</label
+                      >
+                      <input
+                        type="email"
+                        name="email"
+                        value="<%= user.email %>"
+                        required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Phone</label
+                      >
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="+91 98765 43210"
+                        value="<%= user.phone %>"
+                        required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-rose-500 text-white font-bold text-lg py-4 rounded-xl hover:bg-rose-600 transition shadow-md mt-4"
+              >
+                Request to Book
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="md:col-span-1">
+          <div
+            class="bg-white rounded-2xl shadow-lg p-6 sticky top-10 border border-gray-100"
+          >
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+              Booking Summary
+            </h2>
+            <div class="flex gap-4 mb-6">
+              <img
+                src="/<%= home.imageUrl %>"
+                alt="<%= home.houseName %>"
+                class="w-50 h-30 object-cover rounded-lg"
+              />
+            </div>
+            <hr class="border-gray-200 mb-4" />
+            <div>
+              <p class="text-sm text-gray-500">Entire home</p>
+
+              <h4 class="font-semibold text-gray-800 leading-tight">
+                <%= home.houseName %>
+              </h4>
+
+              <p class="text-xs text-gray-500 mt-2 mb-3">
+                📍 <%= home.location %>
+              </p>
+            </div>
+            <hr class="border-gray-200 mb-4" />
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between items-center text-gray-600">
+                <span>Price per night</span>
+                <span class="font-medium">₹ <%= home.price %></span>
+              </div>
+              <div class="flex justify-between items-center text-gray-600">
+                <span>Duration</span>
+                <span class="font-medium" id="totalDays">0 nights</span>
+              </div>
+              <div class="flex justify-between items-center text-gray-600">
+                <span>Rooms</span>
+                <span class="font-medium" id="summaryRooms">1 room</span>
+              </div>
+              <div class="flex justify-between items-center text-gray-600">
+                <span>Service fee</span>
+                <span class="font-medium">₹ 0</span>
+              </div>
+            </div>
+            <hr class="border-gray-200 my-4" />
+            <div
+              class="flex justify-between items-center text-lg font-bold text-gray-800"
+            >
+              <span>Total (INR)</span>
+              <span id="totalPrice">₹ 0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      function updateRoomMin() {
+        const adults = parseInt(document.getElementById("adults").value) || 1;
+        const children =
+          parseInt(document.getElementById("children").value) || 0;
+        const roomInput = document.getElementById("rooms");
+        const helperText = document.getElementById("roomHelperText");
+
+        const roomsNeededForAdults = Math.ceil(adults / 2);
+        const totalGuests = adults + children;
+        const roomsNeededForCapacity = Math.ceil(totalGuests / 4);
+
+        const minRooms = Math.max(
+          roomsNeededForAdults,
+          roomsNeededForCapacity,
+          1
+        );
+
+        roomInput.min = minRooms;
+
+        if (parseInt(roomInput.value) < minRooms) {
+          roomInput.value = minRooms;
+        }
+
+        helperText.innerText = `Minimum ${minRooms} room(s) required for ${totalGuests} guest(s).`;
+        calculateTotal();
+      }
+
+      function validateRoomCount() {
+        const roomInput = document.getElementById("rooms");
+        const min = parseInt(roomInput.min) || 1;
+
+        if (parseInt(roomInput.value) < min) {
+          alert(`You need at least ${min} rooms for this number of guests.`);
+          roomInput.value = min;
+        }
+      }
+
+      function calculateTotal() {
+        // Now getting the dynamic price from the hidden field
+        const pricePerNight = parseFloat(
+          document.getElementById("pricePerNight").value
+        );
+        const checkInInput = document.getElementById("checkIn").value;
+        const checkOutInput = document.getElementById("checkOut").value;
+        const roomCount = parseInt(document.getElementById("rooms").value) || 1;
+
+        const daysDisplay = document.getElementById("totalDays");
+        const priceDisplay = document.getElementById("totalPrice");
+        const summaryRooms = document.getElementById("summaryRooms");
+
+        summaryRooms.innerText =
+          roomCount + (roomCount === 1 ? " room" : " rooms");
+
+        if (checkInInput && checkOutInput) {
+          const checkInDate = new Date(checkInInput);
+          const checkOutDate = new Date(checkOutInput);
+
+          if (checkOutDate > checkInDate) {
+            const diffTime = Math.abs(checkOutDate - checkInDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const total = diffDays * pricePerNight * roomCount;
+
+            daysDisplay.innerText =
+              diffDays + (diffDays === 1 ? " night" : " nights");
+            priceDisplay.innerText = "₹ " + total.toLocaleString("en-IN");
+          } else {
+            daysDisplay.innerText = "0 nights";
+            priceDisplay.innerText = "₹ 0";
+          }
+        }
+      }
+
+      window.onload = function () {
+        updateRoomMin();
+      };
+    </script>
+  </body>
+</html>
