@@ -18,7 +18,7 @@ const { pageNotFound } = require("./Controller/404");
 
 //! ================== APP INIT ==================
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //! ================== VIEW ENGINE ==================
 app.set("view engine", "ejs");
