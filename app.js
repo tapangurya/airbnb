@@ -75,19 +75,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(rootPath, "public")));
 app.use("homesImages/",express.static(path.join(rootPath, "homesImages")));
 app.use("/Admin/homesImages/",express.static(path.join(rootPath, "homesImages")));
-// app.use("/Admin/edit-home/homesImages/",express.static(path.join(rootPath, "homesImages")));
-// app.use("/home/homesImages/",express.static(path.join(rootPath, "homesImages")));
 app.use("/homesImages/",express.static(path.join(rootPath, "homesImages")));
 
 //! ================== SESSION MIDDLEWARE (BEFORE ROUTES) ==================
 const store = new MongoDBStore({
   uri: mongoUrl,
   collection: "sessions",
+   expires: 5 * 60 * 1000,
 });
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+   cookie: {
+      maxAge: 5 * 60 * 1000, // 5 minutes
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    },
   store: store,
 }))
 
