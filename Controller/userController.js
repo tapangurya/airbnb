@@ -123,7 +123,7 @@ exports.postReserve = async (req, res) => {
       description: "User created a booking",
     });
 
-    console.log("Booking saved and linked to user");
+
 
     return res.redirect("/bookings");
   } catch (error) {
