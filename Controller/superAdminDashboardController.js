@@ -26,7 +26,7 @@ exports.getDashboard = async (req, res) => {
         select: "firstName lastName email",
       })
       .lean();
-    console.log("Recent ACTIVITIES",recentActivities);
+  
     const userDetails = await Users.findById()
 
     return res.render("SuperAdmin/dashboard", {
