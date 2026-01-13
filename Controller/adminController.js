@@ -41,7 +41,7 @@ exports.postAddHome = async (req, res, next) => {
 
     await home.save();
 
-    // ✅ LOG ACTIVITY (correct place)
+
     await logActivity({
       actorType: "admin",
       actorId: req.session.user.id,
@@ -168,7 +168,7 @@ exports.postApproveBooking = async (req, res) => {
       description: "Admin approved booking",
     });
 
-    console.log("Booking approved:", bookingId);
+ 
 
     return res.redirect("/Admin/booking-requests");
   } catch (error) {
@@ -201,7 +201,7 @@ exports.postRejectBooking = async (req, res) => {
       description: "Admin rejected booking",
     });
 
-    console.log("Booking approved:", bookingId);
+    
 
     return res.redirect("/Admin/booking-requests");
   } catch (error) {
